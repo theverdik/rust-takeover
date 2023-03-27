@@ -36,6 +36,12 @@ release: $(OBJ_REL)
 	@ echo -e "$(GREEN)LINKING EXECUTABLE$(NC) $(EXE_REL)"
 	@ $(LD) $(OBJ_REL) -o $(EXE_REL) $(LDFLAGS)
 
+run: debug
+	@ ./build/debug/rust-takeover
+
+runrel: release
+	@ ./build/release/rust-takeover
+
 $(OBJ_REL_DIR)/%.o: src/%.c
 	@ mkdir -p $(@D)
 	@ echo -e "$(GREEN)COMPILING OBJECT$(NC) $@"

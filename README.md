@@ -16,3 +16,11 @@ or
 ```
 $ make deps debug
 ```
+then
+```
+$ ./build/release/rust-takeover
+```
+or
+```
+$ ./build/debug/rust-takeover
+```
