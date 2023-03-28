@@ -7,7 +7,7 @@
 #include <stddef.h>
 
 typedef enum {
-	EMPTY
+	ENTITY_BUTTON
 } EntityType;
 
 typedef struct {
