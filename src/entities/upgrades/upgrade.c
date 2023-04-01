@@ -1,23 +1,31 @@
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#include "raylib.h"
 #include "util/list.h"
 #include "entities/upgrades/upgrade.h"
 #include "entities/upgrades/click_multiplier.h"
 
-Upgrade *upgrade_create(UpgradeType type, uint32_t text_length)
+#define PRICE_TEXT_SIZE 28
+#define AMOUNT_TEXT_SIZE 21
+
+#define NAME_FONT_SIZE 26
+#define PRICE_FONT_SIZE 23
+#define AMOUNT_FONT_SIZE 30
+
+Upgrade *upgrade_create(UpgradeType type, uint32_t name_length)
 {
-	Upgrade *upgrade = malloc(sizeof(Upgrade));
+	Upgrade *upgrade = calloc(1, sizeof(Upgrade));
 
 	upgrade->type = type;
 
-	upgrade->entity = entity_create(ENTITY_UPGRADE, 0, 0, 200, 100);
+	upgrade->entity = entity_create(ENTITY_UPGRADE, 0, 0, 300, 100);
 
 	upgrade->price = 0;
 	upgrade->amount = 0;
 
-	upgrade->text = calloc(text_length, sizeof(char));
-	upgrade->text_length = text_length;
+	upgrade->name_text = calloc(name_length, sizeof(char));
+	upgrade->name_length = name_length;
 
 	return upgrade;
 }
@@ -35,14 +43,25 @@ void upgrade_render(List *upgrades)
 {
 	for (Node *temp = upgrades->head; temp != NULL; temp = temp->next) {
 		Upgrade *data = temp->data;
-		DrawRectangleLines(data->entity->body.x, data->entity->body.y, data->entity->body.width, data->entity->body.height, BLACK);
+		DrawRectangleLinesEx(data->entity->body, 2.0f, BLACK);
+
+		DrawText(data->name_text, data->entity->body.x + 4, data->entity->body.y + 2, NAME_FONT_SIZE, BLACK);
+		
+		memset(data->price_text, 0, PRICE_TEXT_SIZE);
+		sprintf(data->price_text, "Price: %u", data->price);
+		DrawText(data->price_text, data->entity->body.x + 4, data->entity->body.y + data->entity->body.height - PRICE_FONT_SIZE - 2, PRICE_FONT_SIZE, BLACK);
+
+		memset(data->amount_text, 0, AMOUNT_TEXT_SIZE);
+		sprintf(data->amount_text, "%u", data->amount);
+		DrawText(data->amount_text, data->entity->body.x + data->entity->body.width - MeasureText(data->amount_text, AMOUNT_FONT_SIZE) - 4,
+		         data->entity->body.y + (data->entity->body.height / 2) - (AMOUNT_FONT_SIZE >> 1) - 2, AMOUNT_FONT_SIZE, BLACK);
 	}
 }
 
 void upgrade_destroy(Upgrade *upgrade)
 {
 	free(upgrade->entity);
-	free(upgrade->text);
+	free(upgrade->name_text);
 	free(upgrade);
 }
 
@@ -63,7 +82,7 @@ void upgrade_list_destroy(List *upgrades)
 {
 	for (Node *temp = upgrades->head; temp != NULL; temp = temp->next) {
 		free(((Upgrade *)temp->data)->entity);
-		free(((Upgrade *)temp->data)->text);
+		free(((Upgrade *)temp->data)->name_text);
 	}
 
 	list_free(upgrades);

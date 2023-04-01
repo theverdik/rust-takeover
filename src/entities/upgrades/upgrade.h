@@ -19,14 +19,17 @@ typedef struct {
 
 	Entity *entity;
 
-	uint32_t price;
-	uint32_t amount;
+	char *name_text;
+	uint32_t name_length;
 
-	char *text;
-	uint32_t text_length;
+	uint32_t price;
+	char price_text[28];
+
+	uint32_t amount;
+	char amount_text[21];
 } Upgrade;
 
-Upgrade *upgrade_create(UpgradeType type, uint32_t text_length);
+Upgrade *upgrade_create(UpgradeType type, uint32_t name_length);
 
 void upgrade_update(List *upgrades, Button *button);
 void upgrade_render(List *upgrades);

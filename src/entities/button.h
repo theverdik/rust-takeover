@@ -14,8 +14,8 @@ typedef struct {
 	Entity *entity;
 	Texture2D texture;
 	
-	float money;
-	char money_text[50];
+	uint64_t money;
+	char money_text[51];
 
 	uint64_t click_value;
 } Button;
