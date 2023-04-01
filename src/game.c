@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 #include "entities/button.h"
+#include "entities/upgrades/upgrade.h"
 #include "game.h"
 #include "graphics/window.h"
 
@@ -27,8 +28,7 @@ static Game *init(void)
 	InitAudioDevice();
 
 	game->button = button_init(WIDTH, HEIGHT);
-
-	game->entities = list_create();
+	game->upgrades = upgrade_list_create(WIDTH, HEIGHT);
 
 	return game;
 }
@@ -67,7 +67,9 @@ void game_run(void)
 static void update(Game *game)
 {
 	window_update(game->window);
+
 	button_update(game->button);
+	upgrade_update(game->upgrades, game->button);
 }
 
 static void tick(Game *game)
@@ -80,6 +82,7 @@ static void render(Game *game)
 	ClearBackground(game->window->background);
 
 	button_render(game->button);
+	upgrade_render(game->upgrades);
 	
 	// for (Node *temp = game->entities->head; temp != NULL; temp = temp->next) {
 	// 	DrawRectangleRec(((Entity *)temp->data)->body, ((Entity *)temp->data)->color);
@@ -92,6 +95,7 @@ static void terminate(Game *game)
 {
 	CloseAudioDevice();
 	window_destroy(game->window);
-	list_free(game->entities);
+
+	upgrade_list_destroy(game->upgrades);
 	free(game);
 }

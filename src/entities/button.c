@@ -9,9 +9,9 @@
 #define WIDTH 325
 #define HEIGHT 325
 
-#define MONEY_TEXT_SIZE 40
+#define MONEY_TEXT_SIZE 50
 
-static uint8_t get_digits(uint32_t n);
+// static uint8_t get_digits(uint32_t n);
 
 Button *button_init(int32_t window_width, int32_t window_height)
 {
@@ -26,6 +26,8 @@ Button *button_init(int32_t window_width, int32_t window_height)
 	button->money = 0;
 	memset(button->money_text, 0, MONEY_TEXT_SIZE);
 	strcpy(button->money_text, "Codebases rewritten in Rust: 0");
+
+	button->click_value = 1;
 
 	return button;
 }
@@ -50,10 +52,10 @@ void button_update(Button *button)
 
 		if (x >= button->entity->body.x && x <= button->entity->body.x + button->entity->body.width &&
 		    y >= button->entity->body.y && y <= button->entity->body.y + button->entity->body.height) {
-			++button->money;
+			button->money += button->click_value;
 
 			memset(button->money_text, 0, MONEY_TEXT_SIZE);
-			sprintf(button->money_text, "Codebases rewritten in Rust: %d", button->money);
+			sprintf(button->money_text, "Codebases rewritten in Rust: %.0f", button->money);
 
 			// Resize button to compensate for the shrinking that happens when mouse button is pressed
 
@@ -80,17 +82,17 @@ void button_destroy(Button *button)
 	free(button);
 }
 
-static uint8_t get_digits(uint32_t n)
-{
-	if (n < 10) return 1;
-    if (n < 100) return 2;
-    if (n < 1000) return 3;
-    if (n < 10000) return 4;
-    if (n < 100000) return 5;
-    if (n < 1000000) return 6;
-    if (n < 10000000) return 7;
-    if (n < 100000000) return 8;
-    if (n < 1000000000) return 9;
+// static uint8_t get_digits(uint32_t n)
+// {
+// 	if (n < 10) return 1;
+//     if (n < 100) return 2;
+//     if (n < 1000) return 3;
+//     if (n < 10000) return 4;
+//     if (n < 100000) return 5;
+//     if (n < 1000000) return 6;
+//     if (n < 10000000) return 7;
+//     if (n < 100000000) return 8;
+//     if (n < 1000000000) return 9;
 
-	return 10;
-}
+// 	return 10;
+// }

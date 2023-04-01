@@ -16,7 +16,7 @@ typedef struct {
 
 	Button *button;
 
-	List *entities, *textures, *sounds, *music;
+	List *upgrades;
 } Game;
 
 void game_run(void);

@@ -7,7 +7,8 @@
 #include <stddef.h>
 
 typedef enum {
-	ENTITY_BUTTON
+	ENTITY_BUTTON,
+	ENTITY_UPGRADE
 } EntityType;
 
 typedef struct {
