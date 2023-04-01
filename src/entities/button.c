@@ -58,7 +58,7 @@ void button_update(Button *button)
 			button->money += button->click_value;
 
 			memset(button->money_text, 0, MONEY_TEXT_SIZE);
-			sprintf(button->money_text, "Codebases rewritten in Rust: %lu", button->money);
+			sprintf(button->money_text, "Codebases rewritten in Rust: %lu", (uint64_t)button->money);
 
 			// Resize button to compensate for the shrinking that happens when mouse button is pressed
 
@@ -76,7 +76,7 @@ void button_render(Button *button)
 	renderer_render_textured_entity(button->entity, &button->texture);
 
 	memset(button->money_text, 0, MONEY_TEXT_SIZE);
-	sprintf(button->money_text, "Codebases rewritten in Rust: %lu", button->money);
+	sprintf(button->money_text, "Codebases rewritten in Rust: %lu", (uint64_t)button->money);
 	DrawText(button->money_text, (button->window_width >> 1) - (MeasureText(button->money_text, FONT_SIZE) >> 1) - X_OFFSET, 0, FONT_SIZE, BLACK);
 }
 

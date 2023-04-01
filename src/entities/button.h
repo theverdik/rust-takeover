@@ -14,10 +14,10 @@ typedef struct {
 	Entity *entity;
 	Texture2D texture;
 	
-	uint64_t money;
+	double money;
 	char money_text[51];
 
-	uint64_t click_value;
+	double click_value;
 } Button;
 
 Button *button_init(int32_t window_width, int32_t window_height);

@@ -23,7 +23,7 @@ void click_multiplier_update(Button *button, Upgrade *click_multiplier)
 			y >= click_multiplier->entity->body.y && y <= click_multiplier->entity->body.y + click_multiplier->entity->body.height) {
 			if (button->money >= click_multiplier->price) {
 				button->money -= click_multiplier->price;
-				button->click_value *= 1.25f;
+				button->click_value *= 1.5f;
 
 				++click_multiplier->amount;
 				click_multiplier->price += click_multiplier->price / 0.75f;
