@@ -6,7 +6,7 @@ A clicker game about rust ironically written in C
 ## How to run
 
 ```
-$ git clone https://github.com/theverdik/rust-takeover.git --recurse-submodules
+$ git clone https://github.com/theverdik/rust-takeover.git
 ```
 and
 ```
